@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Linie Timp Editabilă Manual - Renunțare la Alcool</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fffbe6;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004d99;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      background-color: #e6f2ff;
+      margin: 10px 0;
+      padding: 15px;
+      border-left: 6px solid #007acc;
+      border-radius: 5px;
+    }
+
+    /* Style for editable dates and intervals */
+    li strong.date-display {
+      color: #cc0000; /* Default color for specific dates */
+      font-weight: bold;
+      cursor: text; /* Indicate it's editable text */
+      padding: 2px 4px; /* Add slight padding for better click target */
+      border-radius: 3px; /* Slightly rounded corners */
+      border: 1px dashed transparent; /* Show border only on focus/hover */
+      transition: border 0.2s ease, background-color 0.2s ease; /* Added background-color transition */
+    }
+
+    /* Different color for intervals to distinguish them, but still editable */
+    li strong.interval-display {
+        color: #006400; /* Dark green for intervals */
+        font-weight: bold;
+        cursor: text;
+        padding: 2px 4px;
+        border-radius: 3px;
+        border: 1px dashed transparent;
+        transition: border 0.2s ease, background-color 0.2s ease;
+    }
+
+
+    /* Style when the editable element is focused (being edited) */
+    /* Applied to both .date-display and .interval-display */
+    li strong.date-display:focus,
+    li strong.interval-display:focus {
+        background-color: #ffffff;
+        outline: none; /* Remove default outline */
+        border: 1px dashed #007acc; /* Highlight with a dashed border */
+        box-shadow: 0 0 3px rgba(0, 122, 204, 0.5); /* Add a subtle glow */
+    }
+
+    .edit-note {
+        font-size: 0.9em;
+        color: #555;
+        text-align: center;
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Linie Timp - Renunțare la Alcool</h1>
+
+    <p class="edit-note">
+      Poți edita datele specifice (<strong style="color: #cc0000;">roșu</strong>) și intervalele (<strong style="color: #006400;">verde</strong>) direct făcând clic pe ele.
+      Te rog păstrează formatul <strong>ZZ.LL.AAAA</strong> pentru datele specifice și asigură-te că intervalele modificate se potrivesc cronologic.
+    </p>
+
+    <ul id="timelineList">
+      <li>
+        <strong class="date-display" contenteditable="true">09.10.2022</strong>: Accident sub influența alcoolului – M-am gândit doar la mine, am fost egoist și am pus vieți în pericol.
+      </li>
+      <li>
+        <strong class="interval-display" contenteditable="true">Octombrie 2022 – Ianuarie 2023</strong>: Am continuat să beau ca la început – excesiv și fără control.
+      </li>
+       <li>
+        <strong class="interval-display" contenteditable="true">Februarie – Mai 2023</strong>: Am redus treptat consumul – din ce în ce mai puțin, pe măsură ce conștientizam consecințele.
+      </li>
+      <li>
+        <strong class="date-display" contenteditable="true">31.05.2023</strong>: Ultima bere – decizie conștientă de a renunța definitiv.
+      </li>
+      <li>
+        <strong class="date-display" contenteditable="true">01.06.2023</strong>: Începutul abstinenței – Nu am mai consumat alcool de atunci!
+      </li>
+    </ul>
+  </div>
+
+  </body>
+</html>
