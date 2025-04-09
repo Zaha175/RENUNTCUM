@@ -3,33 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linie Timp Editabilă - Renunțare la Alcool</title>
+    <title>Linie Timp - Renunțare la Alcool</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         /* Basis Schriftart */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Übergang für Dark Mode */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Stile für editierbare Spans */
         .editable-span {
-            cursor: text;
-            padding: 2px 6px;
-            border-radius: 4px;
+            cursor: text; padding: 2px 6px; border-radius: 4px;
             border: 1px dashed transparent;
             transition: border 0.2s ease, background-color 0.2s ease;
-            display: inline-block;
-            margin-right: 5px;
+            display: inline-block; margin-right: 5px;
         }
         .editable-span:focus {
-            background-color: #ffffff;
-            outline: none;
+            background-color: #ffffff; outline: none;
             border: 1px dashed #3b82f6; /* blue-500 */
             box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
         }
-        .dark .editable-span:focus { /* Dark mode focus */
+        .dark .editable-span:focus {
              background-color: #4b5563; /* gray-600 */
              border: 1px dashed #60a5fa; /* blue-400 */
              box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
@@ -37,8 +34,7 @@
 
         /* Spezifische Stile für Datum/Intervall */
         .date-display {
-            color: #dc2626; /* red-600 */
-            font-weight: 600;
+            color: #dc2626; font-weight: 600; /* red-600 */
             background-color: rgba(252, 165, 165, 0.2);
         }
         .dark .date-display {
@@ -46,8 +42,7 @@
              background-color: rgba(248, 113, 113, 0.15);
         }
         .interval-display {
-            color: #16a34a; /* green-600 */
-            font-weight: 600;
+            color: #16a34a; font-weight: 600; /* green-600 */
             background-color: rgba(74, 222, 128, 0.2);
         }
         .dark .interval-display {
@@ -55,35 +50,33 @@
              background-color: rgba(74, 222, 128, 0.15);
         }
 
-        /* --- Logo CSS entfernt --- */
-
         /* --- Banner Animationen Start --- */
-        @keyframes pulse {
+        @keyframes pulse { /* ... (Animationen bleiben gleich) ... */
             0% { box-shadow: 0 0 8px 0px rgba(250, 204, 21, 0.4); }
             50% { box-shadow: 0 0 15px 4px rgba(250, 204, 21, 0.6); }
             100% { box-shadow: 0 0 8px 0px rgba(250, 204, 21, 0.4); }
         }
         .dark @keyframes pulse {
-             0% { box-shadow: 0 0 8px 0px rgba(253, 224, 71, 0.5); } /* yellow-300 */
+             0% { box-shadow: 0 0 8px 0px rgba(253, 224, 71, 0.5); }
              50% { box-shadow: 0 0 15px 4px rgba(253, 224, 71, 0.7); }
              100% { box-shadow: 0 0 8px 0px rgba(253, 224, 71, 0.5); }
         }
-        @keyframes textGlow {
+        @keyframes textGlow { /* ... */
             from { text-shadow: 0 0 3px #facc15, 0 0 6px #fde047; }
             to { text-shadow: 0 0 6px #facc15, 0 0 10px #fde047, 0 0 15px #fbbf24; }
         }
-        .dark @keyframes textGlow {
+        .dark @keyframes textGlow { /* ... */
              from { text-shadow: 0 0 4px #fde047, 0 0 8px #fef08a; }
              to { text-shadow: 0 0 8px #fde047, 0 0 12px #fef08a, 0 0 18px #fcd34d; }
         }
-        .cursor {
+        .cursor { /* ... */
             display: inline-block; width: 3px; height: 1.2em;
             background-color: #facc15; margin-left: 4px;
             animation: blink 1s infinite; vertical-align: bottom;
         }
         .dark .cursor { background-color: #fde047; }
         @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-        #ad-banner {
+        #ad-banner { /* ... */
             animation: pulse 3s infinite ease-in-out; box-sizing: border-box;
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
@@ -102,61 +95,87 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .timeline-item:hover {
-            transform: translateY(-3px); /* Leichter Anhebe-Effekt */
+            transform: translateY(-3px);
         }
 
         /* Animation für den Fortschrittsbalken */
         @keyframes growProgress {
             from { width: 0; }
-            to { width: var(--progress-width, 0%); } /* Zielbreite über Variable setzen */
+            to { width: var(--progress-width, 0%); }
         }
         .progress-animate {
             animation: growProgress 1.5s ease-out forwards;
         }
 
         /* Konfetti-Animation */
-        @keyframes confetti-fall {
+        @keyframes confetti-fall { /* ... */
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
-        .confetti {
-            position: fixed; top: 0; /* Startet oben */
-            width: 10px; height: 10px;
-            background-color: #f00; /* Standardfarbe, wird überschrieben */
-            pointer-events: none; z-index: 1000; /* Hoher z-index */
-            will-change: transform, opacity; /* Performance-Optimierung */
-            opacity: 0; /* Startet unsichtbar, bis Animation beginnt */
+        .confetti { /* ... */
+            position: fixed; top: 0; width: 10px; height: 10px;
+            background-color: #f00; pointer-events: none; z-index: 1000;
+            will-change: transform, opacity; opacity: 0;
         }
 
         /* Toast Notification Styling */
-        .toast {
+        .toast { /* ... */
             position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%) translateY(120px); /* Startet weiter unten */
-            background-color: #374151; /* gray-700 */
-            color: white; padding: 12px 24px; border-radius: 8px;
+            transform: translateX(-50%) translateY(120px);
+            background-color: #374151; color: white; padding: 12px 24px; border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 1000; opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease; /* Weicherer Übergang */
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
         }
         .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+            transform: translateX(-50%) translateY(0); opacity: 1;
         }
+
+        /* --- NEU: Iframe Styling --- */
+        #logo-iframe-container {
+            position: absolute;
+            top: 1rem;      /* Tailwind top-4 */
+            right: 1rem;    /* Tailwind right-4 */
+            width: 5rem;    /* Tailwind w-20 */
+            height: 5rem;   /* Tailwind h-20 */
+            z-index: 50;    /* Über anderen Elementen */
+            overflow: hidden; /* Verhindert Scrollbalken im Container */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Tailwind shadow-md */
+        }
+        /* Responsive Anpassung für größere Bildschirme */
+        @media (min-width: 640px) { /* Tailwind sm: */
+            #logo-iframe-container {
+                width: 6rem;  /* Tailwind sm:w-24 */
+                height: 6rem; /* Tailwind sm:h-24 */
+            }
+        }
+        #logo-iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Keinen Rahmen um den iframe */
+        }
+        /* --- Ende Iframe Styling --- */
 
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-indigo-900 dark:to-gray-800 min-h-screen p-4 md:p-8 text-gray-800 dark:text-gray-200">
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-indigo-900 dark:to-gray-800 min-h-screen p-4 md:p-8 text-gray-800 dark:text-gray-200 relative"> <div id="logo-iframe-container">
+        <iframe
+            id="logo-iframe"
+            src="https://zaha175.github.io/LOGOSTANDARD/"
+            title="3D Logo Animation"
+            frameborder="0">
+        </iframe>
+    </div>
 
     <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <svg id="darkModeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
     </button>
 
-    <div class="container mx-auto max-w-5xl bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300">
-
-        <div id="ad-banner" class="text-center p-4 bg-gradient-to-r from-blue-800 to-indigo-900 dark:from-blue-900 dark:to-indigo-950 text-yellow-300 dark:text-yellow-200 text-base md:text-lg font-medium border-b-4 border-yellow-400 dark:border-yellow-500 min-h-[3em] flex items-center justify-center overflow-hidden relative">
+    <div class="container mx-auto max-w-5xl bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300 mt-16 sm:mt-20"> <div id="ad-banner" class="text-center p-4 bg-gradient-to-r from-blue-800 to-indigo-900 dark:from-blue-900 dark:to-indigo-950 text-yellow-300 dark:text-yellow-200 text-base md:text-lg font-medium border-b-4 border-yellow-400 dark:border-yellow-500 min-h-[3em] flex items-center justify-center overflow-hidden relative">
             <span class="text-glow"></span><span class="cursor"></span>
         </div>
 
@@ -199,7 +218,7 @@
             </p>
 
             <ul id="timelineList" class="space-y-4">
-                <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out">
+                 <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out">
                     <strong class="date-display editable-span" contenteditable="true" data-original-value="09.10.2022">09.10.2022</strong> Accident sub influența alcoolului – M-am gândit doar la mine, am fost egoist și am pus vieți în pericol.
                 </li>
                 <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-purple-500 dark:border-purple-400 transition duration-300 ease-in-out">
@@ -217,7 +236,7 @@
             </ul>
 
             <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-3">Adaugă un eveniment nou</h3>
+                 <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-3">Adaugă un eveniment nou</h3>
                 <div class="space-y-3">
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="flex-1">
@@ -244,11 +263,11 @@
                 </div>
             </div>
             <div class="mt-8 flex">
-                <button id="motivate-me-btn" class="mx-auto px-6 py-3 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center">
+                 <button id="motivate-me-btn" class="mx-auto px-6 py-3 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center">
                     <i data-lucide="sparkles" class="mr-2 h-5 w-5"></i> Motivație Zilnică
                 </button>
             </div>
-            </div> </div> <div id="toast" class="toast">Nachricht</div>
+        </div> </div> <div id="toast" class="toast">Nachricht</div>
 
     <script>
         // --- START Dark Mode Logic ---
@@ -273,7 +292,7 @@
             if (typeof lucide !== 'undefined') {
                  lucide.createIcons();
             }
-             // Aufruf von initLogo() entfernt
+             // Kein initLogo() Aufruf mehr nötig
         };
 
         applyTheme(userPrefersDark);
@@ -286,196 +305,45 @@
 
 
         // --- START JavaScript Banner ---
-        let typeWriterTimeoutId = null;
-        let typingTimeoutId = null;
-        const TYPEWRITER_SPEED = 85;
-        const RESTART_DELAY = 4000;
-
-        function typeWriter(textElement, cursorElement, text) {
-            let i = 0;
-            textElement.innerHTML = "";
-            cursorElement.style.display = "inline-block";
-            if (typingTimeoutId) clearTimeout(typingTimeoutId);
-            if (typeWriterTimeoutId) clearTimeout(typeWriterTimeoutId);
-            typeWriterTimeoutId = null;
-
-            function typing() {
-                if (typingTimeoutId) clearTimeout(typingTimeoutId);
-                const isHovering = document.querySelector("#ad-banner:hover");
-                if (isHovering) {
-                    typingTimeoutId = setTimeout(typing, 200); return;
-                }
-                if (i < text.length) {
-                    textElement.innerHTML += text.charAt(i); i++;
-                    typingTimeoutId = setTimeout(typing, TYPEWRITER_SPEED);
-                } else {
-                    cursorElement.style.display = "none";
-                    typeWriterTimeoutId = setTimeout(() => {
-                        if (!document.querySelector("#ad-banner:hover")) {
-                            typeWriter(textElement, cursorElement, text);
-                        } else { typing(); }
-                    }, RESTART_DELAY);
-                }
-            }
-            typing();
-        }
-
-        const textGlowElement = document.querySelector("#ad-banner .text-glow");
-        const cursorElement = document.querySelector("#ad-banner .cursor");
-        const adBannerElement = document.getElementById("ad-banner");
-
-        if (textGlowElement && cursorElement && adBannerElement) {
-            const adMessage = "Adevărat, nu noi folosim alcoolul, ci alcoolul ne folosește pe noi! Nu mai vreau să fiu sclavul unei otrăvi intoxicante! Nu-ți irosi viața, viața este mai scurtă decât crezi!";
-            typeWriter(textGlowElement, cursorElement, adMessage);
-            adBannerElement.addEventListener("mouseenter", () => {
-                if (typeWriterTimeoutId) { clearTimeout(typeWriterTimeoutId); typeWriterTimeoutId = null; }
-            });
-            adBannerElement.addEventListener("mouseleave", () => {
-                 const isTypingComplete = textGlowElement.innerHTML === adMessage;
-                 if (!typingTimeoutId && !typeWriterTimeoutId && isTypingComplete) {
-                     typeWriterTimeoutId = setTimeout(() => { typeWriter(textGlowElement, cursorElement, adMessage); }, 100);
-                 } else if (!typingTimeoutId && !isTypingComplete) { typing(); }
-            });
-        } else { console.error("Banner elements not found!"); }
+        // ... (Code bleibt unverändert) ...
+        let typeWriterTimeoutId = null; let typingTimeoutId = null; const TYPEWRITER_SPEED = 85; const RESTART_DELAY = 4000;
+        function typeWriter(textElement, cursorElement, text) { let i = 0; textElement.innerHTML = ""; cursorElement.style.display = "inline-block"; if (typingTimeoutId) clearTimeout(typingTimeoutId); if (typeWriterTimeoutId) clearTimeout(typeWriterTimeoutId); typeWriterTimeoutId = null; function typing() { if (typingTimeoutId) clearTimeout(typingTimeoutId); const isHovering = document.querySelector("#ad-banner:hover"); if (isHovering) { typingTimeoutId = setTimeout(typing, 200); return; } if (i < text.length) { textElement.innerHTML += text.charAt(i); i++; typingTimeoutId = setTimeout(typing, TYPEWRITER_SPEED); } else { cursorElement.style.display = "none"; typeWriterTimeoutId = setTimeout(() => { if (!document.querySelector("#ad-banner:hover")) { typeWriter(textElement, cursorElement, text); } else { typing(); } }, RESTART_DELAY); } } typing(); }
+        const textGlowElement = document.querySelector("#ad-banner .text-glow"); const cursorElement = document.querySelector("#ad-banner .cursor"); const adBannerElement = document.getElementById("ad-banner");
+        if (textGlowElement && cursorElement && adBannerElement) { const adMessage = "Adevărat, nu noi folosim alcoolul, ci alcoolul ne folosește pe noi! Nu mai vreau să fiu sclavul unei otrăvi intoxicante! Nu-ți irosi viața, viața este mai scurtă decât crezi!"; typeWriter(textGlowElement, cursorElement, adMessage); adBannerElement.addEventListener("mouseenter", () => { if (typeWriterTimeoutId) { clearTimeout(typeWriterTimeoutId); typeWriterTimeoutId = null; } }); adBannerElement.addEventListener("mouseleave", () => { const isTypingComplete = textGlowElement.innerHTML === adMessage; if (!typingTimeoutId && !typeWriterTimeoutId && isTypingComplete) { typeWriterTimeoutId = setTimeout(() => { typeWriter(textGlowElement, cursorElement, adMessage); }, 100); } else if (!typingTimeoutId && !isTypingComplete) { typing(); } }); } else { console.error("Banner elements not found!"); }
         // --- END JavaScript Banner ---
 
 
         // --- START Toast Notification Function ---
-        function showToast(message, duration = 3000) {
-            const toast = document.getElementById('toast');
-            if (!toast) return;
-            toast.textContent = message;
-            toast.classList.add('show');
-            if (toast.timeoutId) { clearTimeout(toast.timeoutId); }
-            toast.timeoutId = setTimeout(() => {
-                toast.classList.remove('show');
-                toast.timeoutId = null;
-            }, duration);
-        }
+        // ... (Code bleibt unverändert) ...
+        function showToast(message, duration = 3000) { const toast = document.getElementById('toast'); if (!toast) return; toast.textContent = message; toast.classList.add('show'); if (toast.timeoutId) { clearTimeout(toast.timeoutId); } toast.timeoutId = setTimeout(() => { toast.classList.remove('show'); toast.timeoutId = null; }, duration); }
         // --- END Toast Notification Function ---
 
 
         // --- START JavaScript for Editable Content ---
-        function setupEditableSpanListeners(span) {
-             span.addEventListener('focus', (event) => { event.target.dataset.originalValue = event.target.innerText.trim(); });
-             span.addEventListener('blur', handleEditBlur);
-             span.addEventListener('keydown', (event) => {
-                 if (event.key === 'Enter') { event.preventDefault(); event.target.blur(); }
-                 else if (event.key === 'Escape') { event.target.innerText = event.target.dataset.originalValue || ''; event.target.blur(); }
-             });
-        }
-        function handleEditBlur(event) {
-             const span = event.target; const newText = span.innerText.trim(); const originalText = span.dataset.originalValue || '';
-             if (newText === originalText) { return; }
-             let isValid = true;
-             if (span.classList.contains('date-display')) {
-                 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-                 if (!dateRegex.test(newText)) {
-                     showToast("Format dată invalid! Folosiți ZZ.LL.AAAA."); span.innerText = originalText; isValid = false;
-                 }
-             }
-             if (isValid) {
-                 showToast("Salvat cu succes!"); span.dataset.originalValue = newText;
-                 if (span.closest('li')?.id === 'abstinence-start-item' || span.classList.contains('date-display')) { calculateProgress(); }
-             }
-        }
+        // ... (Code bleibt unverändert) ...
+        function setupEditableSpanListeners(span) { span.addEventListener('focus', (event) => { event.target.dataset.originalValue = event.target.innerText.trim(); }); span.addEventListener('blur', handleEditBlur); span.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); event.target.blur(); } else if (event.key === 'Escape') { event.target.innerText = event.target.dataset.originalValue || ''; event.target.blur(); } }); }
+        function handleEditBlur(event) { const span = event.target; const newText = span.innerText.trim(); const originalText = span.dataset.originalValue || ''; if (newText === originalText) { return; } let isValid = true; if (span.classList.contains('date-display')) { const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/; if (!dateRegex.test(newText)) { showToast("Format dată invalid! Folosiți ZZ.LL.AAAA."); span.innerText = originalText; isValid = false; } } if (isValid) { showToast("Salvat cu succes!"); span.dataset.originalValue = newText; if (span.closest('li')?.id === 'abstinence-start-item' || span.classList.contains('date-display')) { calculateProgress(); } } }
         document.querySelectorAll('.editable-span').forEach(setupEditableSpanListeners);
         // --- END JavaScript for Editable Content ---
 
 
         // --- START Progress Calculation ---
-        function calculateProgress() {
-            try {
-                const abstinenceItem = document.getElementById('abstinence-start-item');
-                if (!abstinenceItem) { document.getElementById('progress-section').style.display = 'none'; return; }
-                document.getElementById('progress-section').style.display = 'block';
-                const abstinenteDateElement = abstinenceItem.querySelector('.date-display');
-                if (!abstinenteDateElement) { return; }
-                const abstinenteDateText = abstinenteDateElement.innerText.trim(); const parts = abstinenteDateText.split('.');
-                if (parts.length !== 3) { return; }
-                const startDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-                if (isNaN(startDate.getTime())) { return; }
-                const now = new Date();
-                if (startDate > now) {
-                    document.getElementById('days-count').textContent = '0'; document.getElementById('life-recovered').textContent = '0h';
-                    document.getElementById('progress-percent').textContent = '0%'; document.getElementById('progress-bar').style.setProperty('--progress-width', '0%');
-                    document.getElementById('progress-bar').classList.remove('progress-animate'); void document.getElementById('progress-bar').offsetWidth; document.getElementById('progress-bar').classList.add('progress-animate');
-                    return;
-                }
-                const diffTime = Math.abs(now - startDate);
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                document.getElementById('days-count').textContent = diffDays.toString();
-
-                // *** HIER IST DIE ÄNDERUNG: Berechne Gesamtstunden der Abstinenz ***
-                const hoursRecovered = diffDays * 24;
-                document.getElementById('life-recovered').textContent = hoursRecovered.toString() + 'h';
-
-                const progressPercentage = Math.min(100, Math.round((diffDays / 365) * 100));
-                document.getElementById('progress-percent').textContent = progressPercentage.toString() + '%';
-                const progressBar = document.getElementById('progress-bar'); progressBar.style.setProperty('--progress-width', progressPercentage + '%');
-                progressBar.classList.remove('progress-animate'); void progressBar.offsetWidth; progressBar.classList.add('progress-animate');
-            } catch (error) { console.error("Eroare la calcularea progresului:", error); }
-        }
+        // ... (Code bleibt unverändert, inkl. * 24 für Stunden) ...
+        function calculateProgress() { try { const abstinenceItem = document.getElementById('abstinence-start-item'); if (!abstinenceItem) { document.getElementById('progress-section').style.display = 'none'; return; } document.getElementById('progress-section').style.display = 'block'; const abstinenteDateElement = abstinenceItem.querySelector('.date-display'); if (!abstinenteDateElement) { return; } const abstinenteDateText = abstinenteDateElement.innerText.trim(); const parts = abstinenteDateText.split('.'); if (parts.length !== 3) { return; } const startDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0])); if (isNaN(startDate.getTime())) { return; } const now = new Date(); if (startDate > now) { document.getElementById('days-count').textContent = '0'; document.getElementById('life-recovered').textContent = '0h'; document.getElementById('progress-percent').textContent = '0%'; document.getElementById('progress-bar').style.setProperty('--progress-width', '0%'); document.getElementById('progress-bar').classList.remove('progress-animate'); void document.getElementById('progress-bar').offsetWidth; document.getElementById('progress-bar').classList.add('progress-animate'); return; } const diffTime = Math.abs(now - startDate); const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); document.getElementById('days-count').textContent = diffDays.toString(); const hoursRecovered = diffDays * 24; document.getElementById('life-recovered').textContent = hoursRecovered.toString() + 'h'; const progressPercentage = Math.min(100, Math.round((diffDays / 365) * 100)); document.getElementById('progress-percent').textContent = progressPercentage.toString() + '%'; const progressBar = document.getElementById('progress-bar'); progressBar.style.setProperty('--progress-width', progressPercentage + '%'); progressBar.classList.remove('progress-animate'); void progressBar.offsetWidth; progressBar.classList.add('progress-animate'); } catch (error) { console.error("Eroare la calcularea progresului:", error); } }
         // --- END Progress Calculation ---
 
 
         // --- START Add New Entry Logic ---
-        document.getElementById('add-entry-btn').addEventListener('click', () => {
-            const entryType = document.getElementById('entry-type').value; const entryDateText = document.getElementById('entry-date').value.trim(); const entryText = document.getElementById('entry-text').value.trim();
-            if (!entryDateText || !entryText) { showToast("Te rog completează toate câmpurile!", 3000); return; }
-            if (entryType === 'date') {
-                 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-                 if (!dateRegex.test(entryDateText)) { showToast("Format dată invalid! Folosiți ZZ.LL.AAAA.", 3000); return; }
-            }
-            const newItem = document.createElement('li');
-            newItem.className = 'timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out';
-            const dateSpan = document.createElement('strong');
-            dateSpan.className = entryType === 'date' ? 'date-display editable-span' : 'interval-display editable-span';
-            dateSpan.contentEditable = "true"; dateSpan.textContent = entryDateText; dateSpan.dataset.originalValue = entryDateText;
-            newItem.appendChild(dateSpan); newItem.appendChild(document.createTextNode(' ' + entryText));
-            document.getElementById('timelineList').appendChild(newItem);
-            setupEditableSpanListeners(dateSpan);
-            document.getElementById('entry-date').value = ''; document.getElementById('entry-text').value = '';
-            showToast("Eveniment adăugat cu succes!");
-            if (entryType === 'date') { calculateProgress(); }
-            if (typeof lucide !== 'undefined') { lucide.createIcons(); }
-        });
+        // ... (Code bleibt unverändert) ...
+        document.getElementById('add-entry-btn').addEventListener('click', () => { const entryType = document.getElementById('entry-type').value; const entryDateText = document.getElementById('entry-date').value.trim(); const entryText = document.getElementById('entry-text').value.trim(); if (!entryDateText || !entryText) { showToast("Te rog completează toate câmpurile!", 3000); return; } if (entryType === 'date') { const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/; if (!dateRegex.test(entryDateText)) { showToast("Format dată invalid! Folosiți ZZ.LL.AAAA.", 3000); return; } } const newItem = document.createElement('li'); newItem.className = 'timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out'; const dateSpan = document.createElement('strong'); dateSpan.className = entryType === 'date' ? 'date-display editable-span' : 'interval-display editable-span'; dateSpan.contentEditable = "true"; dateSpan.textContent = entryDateText; dateSpan.dataset.originalValue = entryDateText; newItem.appendChild(dateSpan); newItem.appendChild(document.createTextNode(' ' + entryText)); document.getElementById('timelineList').appendChild(newItem); setupEditableSpanListeners(dateSpan); document.getElementById('entry-date').value = ''; document.getElementById('entry-text').value = ''; showToast("Eveniment adăugat cu succes!"); if (entryType === 'date') { calculateProgress(); } if (typeof lucide !== 'undefined') { lucide.createIcons(); } });
         // --- END Add New Entry Logic ---
 
 
         // --- START Motivation Logic ---
-        document.getElementById('motivate-me-btn').addEventListener('click', () => {
-            createConfetti();
-            const motivationalMessages = [ "Fiecare zi fără alcool este o victorie! Continuă să mergi înainte!", "Ai ales viața, sănătatea și libertatea în locul dependenței. Ești puternic!", "Nu uita cât de departe ai ajuns. Fii mândru de progresul tău!", "Alege-ți sănătatea în fiecare zi. Merită efortul!", "Libertatea de a nu depinde de o substanță este un dar pe care ți l-ai oferit singur.", "Fiecare provocare pe care o depășești te face mai puternic.", "Recuperarea înseamnă să creezi o viață care merită trăită.", "Ești mai puternic decât tentațiile tale.", "Viața ta se îmbunătățește zi de zi. Observă și apreciază aceste schimbări!", "Fii răbdător cu tine însuți. Recuperarea este un maraton, nu un sprint." ];
-            const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-            showMotivationalToast(randomMessage);
-        });
-        function createConfetti() {
-            const confettiCount = 80; const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1'];
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div'); confetti.className = 'confetti';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + 'vw'; const shape = Math.random();
-                if (shape < 0.3) { confetti.style.borderRadius = '50%'; } else if (shape < 0.7) { confetti.style.width = '5px'; confetti.style.height = '15px'; }
-                document.body.appendChild(confetti); const animationDuration = 3 + Math.random() * 3;
-                confetti.style.animation = `confetti-fall ${animationDuration}s ease-out forwards`;
-                setTimeout(() => { confetti.remove(); }, animationDuration * 1000);
-            }
-        }
-        function showMotivationalToast(message) {
-            let motivationalToast = document.getElementById('motivational-toast');
-            if (!motivationalToast) {
-                motivationalToast = document.createElement('div'); motivationalToast.id = 'motivational-toast';
-                motivationalToast.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800/95 dark:bg-slate-900/95 text-white p-6 md:p-8 rounded-lg shadow-xl z-[1000] max-w-[90%] md:max-w-md text-center text-lg md:text-xl font-medium opacity-0 transition-opacity duration-300 ease-out';
-                document.body.appendChild(motivationalToast);
-            }
-            motivationalToast.textContent = message; void motivationalToast.offsetWidth;
-            motivationalToast.classList.add('opacity-100');
-            if (motivationalToast.hideTimeout) clearTimeout(motivationalToast.hideTimeout);
-            motivationalToast.hideTimeout = setTimeout(() => {
-                motivationalToast.classList.remove('opacity-100');
-            }, 5000);
-        }
+        // ... (Code bleibt unverändert) ...
+        document.getElementById('motivate-me-btn').addEventListener('click', () => { createConfetti(); const motivationalMessages = [ "Fiecare zi fără alcool este o victorie! Continuă să mergi înainte!", "Ai ales viața, sănătatea și libertatea în locul dependenței. Ești puternic!", "Nu uita cât de departe ai ajuns. Fii mândru de progresul tău!", "Alege-ți sănătatea în fiecare zi. Merită efortul!", "Libertatea de a nu depinde de o substanță este un dar pe care ți l-ai oferit singur.", "Fiecare provocare pe care o depășești te face mai puternic.", "Recuperarea înseamnă să creezi o viață care merită trăită.", "Ești mai puternic decât tentațiile tale.", "Viața ta se îmbunătățește zi de zi. Observă și apreciază aceste schimbări!", "Fii răbdător cu tine însuți. Recuperarea este un maraton, nu un sprint." ]; const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]; showMotivationalToast(randomMessage); });
+        function createConfetti() { const confettiCount = 80; const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']; for (let i = 0; i < confettiCount; i++) { const confetti = document.createElement('div'); confetti.className = 'confetti'; confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; confetti.style.left = Math.random() * 100 + 'vw'; const shape = Math.random(); if (shape < 0.3) { confetti.style.borderRadius = '50%'; } else if (shape < 0.7) { confetti.style.width = '5px'; confetti.style.height = '15px'; } document.body.appendChild(confetti); const animationDuration = 3 + Math.random() * 3; confetti.style.animation = `confetti-fall ${animationDuration}s ease-out forwards`; setTimeout(() => { confetti.remove(); }, animationDuration * 1000); } }
+        function showMotivationalToast(message) { let motivationalToast = document.getElementById('motivational-toast'); if (!motivationalToast) { motivationalToast = document.createElement('div'); motivationalToast.id = 'motivational-toast'; motivationalToast.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800/95 dark:bg-slate-900/95 text-white p-6 md:p-8 rounded-lg shadow-xl z-[1000] max-w-[90%] md:max-w-md text-center text-lg md:text-xl font-medium opacity-0 transition-opacity duration-300 ease-out'; document.body.appendChild(motivationalToast); } motivationalToast.textContent = message; void motivationalToast.offsetWidth; motivationalToast.classList.add('opacity-100'); if (motivationalToast.hideTimeout) clearTimeout(motivationalToast.hideTimeout); motivationalToast.hideTimeout = setTimeout(() => { motivationalToast.classList.remove('opacity-100'); }, 5000); }
         // --- END Motivation Logic ---
 
 
@@ -483,7 +351,6 @@
         document.addEventListener('DOMContentLoaded', () => {
              if (typeof lucide !== 'undefined') { lucide.createIcons(); }
              calculateProgress();
-             // initLogo(); // Entfernt, da Logo gelöscht wurde
         });
 
     </script>
