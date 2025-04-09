@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linie Timp Editabilă - Renunțare la Alcool</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
-            }
-        }
-    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
         /* Basis Schriftart */
         body {
@@ -63,31 +55,7 @@
              background-color: rgba(74, 222, 128, 0.15);
         }
 
-        /* --- Logo CSS Start --- */
-        #logo-container {
-            position: absolute;
-            top: 1rem;      /* entspricht top-4 */
-            left: 1rem;     /* entspricht left-4 */
-            width: 4rem;    /* kleiner als im Original (w-16) */
-            height: 4rem;   /* kleiner als im Original (h-16) */
-            z-index: 50;    /* Hoher z-index */
-            pointer-events: none;
-        }
-        /* Responsive Anpassung */
-        @media (min-width: 640px) { /* sm: */
-            #logo-container {
-                width: 5rem;  /* sm:w-20 */
-                height: 5rem; /* sm:h-20 */
-            }
-        }
-        #logo-canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-        /* --- Logo CSS Ende --- */
+        /* --- Logo CSS entfernt --- */
 
         /* --- Banner Animationen Start --- */
         @keyframes pulse {
@@ -95,57 +63,84 @@
             50% { box-shadow: 0 0 15px 4px rgba(250, 204, 21, 0.6); }
             100% { box-shadow: 0 0 8px 0px rgba(250, 204, 21, 0.4); }
         }
-        .dark @keyframes pulse { /* Dark mode pulse (optional: slightly different color?) */
+        .dark @keyframes pulse {
              0% { box-shadow: 0 0 8px 0px rgba(253, 224, 71, 0.5); } /* yellow-300 */
              50% { box-shadow: 0 0 15px 4px rgba(253, 224, 71, 0.7); }
              100% { box-shadow: 0 0 8px 0px rgba(253, 224, 71, 0.5); }
         }
         @keyframes textGlow {
-            from { text-shadow: 0 0 3px #facc15, 0 0 6px #fde047; } /* yellow-400/300 */
-            to { text-shadow: 0 0 6px #facc15, 0 0 10px #fde047, 0 0 15px #fbbf24; } /* yellow-400/300 / amber-400 */
+            from { text-shadow: 0 0 3px #facc15, 0 0 6px #fde047; }
+            to { text-shadow: 0 0 6px #facc15, 0 0 10px #fde047, 0 0 15px #fbbf24; }
         }
-        .dark @keyframes textGlow { /* Dark mode glow */
-             from { text-shadow: 0 0 4px #fde047, 0 0 8px #fef08a; } /* yellow-300/200 */
-             to { text-shadow: 0 0 8px #fde047, 0 0 12px #fef08a, 0 0 18px #fcd34d; } /* yellow-300/200 / amber-300 */
+        .dark @keyframes textGlow {
+             from { text-shadow: 0 0 4px #fde047, 0 0 8px #fef08a; }
+             to { text-shadow: 0 0 8px #fde047, 0 0 12px #fef08a, 0 0 18px #fcd34d; }
         }
         .cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.2em;
-            background-color: #facc15; /* yellow-400 */
-            margin-left: 4px;
-            animation: blink 1s infinite;
-            vertical-align: bottom;
+            display: inline-block; width: 3px; height: 1.2em;
+            background-color: #facc15; margin-left: 4px;
+            animation: blink 1s infinite; vertical-align: bottom;
         }
-        .dark .cursor {
-             background-color: #fde047; /* yellow-300 */
-        }
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
+        .dark .cursor { background-color: #fde047; }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
         #ad-banner {
-            animation: pulse 3s infinite ease-in-out;
-            box-sizing: border-box;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Übergang */
+            animation: pulse 3s infinite ease-in-out; box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
-        #ad-banner .text-glow {
-            animation: textGlow 2.5s ease-in-out infinite alternate;
-        }
-        #ad-banner:hover .text-glow,
-        #ad-banner:hover .cursor,
-        #ad-banner:hover {
-             animation-play-state: paused;
-        }
+        #ad-banner .text-glow { animation: textGlow 2.5s ease-in-out infinite alternate; }
+        #ad-banner:hover .text-glow, #ad-banner:hover .cursor, #ad-banner:hover { animation-play-state: paused; }
         /* --- Banner Animationen Ende --- */
 
         /* Dark Mode Button Styling */
         #darkModeToggle {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 50;
+            position: fixed; bottom: 1rem; right: 1rem; z-index: 50;
             transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover-Effekt für Timeline-Einträge */
+        .timeline-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .timeline-item:hover {
+            transform: translateY(-3px); /* Leichter Anhebe-Effekt */
+        }
+
+        /* Animation für den Fortschrittsbalken */
+        @keyframes growProgress {
+            from { width: 0; }
+            to { width: var(--progress-width, 0%); } /* Zielbreite über Variable setzen */
+        }
+        .progress-animate {
+            animation: growProgress 1.5s ease-out forwards;
+        }
+
+        /* Konfetti-Animation */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed; top: 0; /* Startet oben */
+            width: 10px; height: 10px;
+            background-color: #f00; /* Standardfarbe, wird überschrieben */
+            pointer-events: none; z-index: 1000; /* Hoher z-index */
+            will-change: transform, opacity; /* Performance-Optimierung */
+            opacity: 0; /* Startet unsichtbar, bis Animation beginnt */
+        }
+
+        /* Toast Notification Styling */
+        .toast {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%) translateY(120px); /* Startet weiter unten */
+            background-color: #374151; /* gray-700 */
+            color: white; padding: 12px 24px; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000; opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease; /* Weicherer Übergang */
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
 
     </style>
@@ -155,15 +150,11 @@
 </head>
 <body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-indigo-900 dark:to-gray-800 min-h-screen p-4 md:p-8 text-gray-800 dark:text-gray-200">
 
-    <div id="logo-container">
-        <canvas id="logo-canvas"></canvas>
-    </div>
-
     <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        <svg id="darkModeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg id="darkModeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
     </button>
 
-    <div class="container mx-auto max-w-3xl bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300">
+    <div class="container mx-auto max-w-5xl bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300">
 
         <div id="ad-banner" class="text-center p-4 bg-gradient-to-r from-blue-800 to-indigo-900 dark:from-blue-900 dark:to-indigo-950 text-yellow-300 dark:text-yellow-200 text-base md:text-lg font-medium border-b-4 border-yellow-400 dark:border-yellow-500 min-h-[3em] flex items-center justify-center overflow-hidden relative">
             <span class="text-glow"></span><span class="cursor"></span>
@@ -174,63 +165,119 @@
                 Linie Timp - Renunțare la Alcool
             </h1>
 
+            <div id="progress-section" class="mb-8 bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold text-indigo-700 dark:text-indigo-300 mb-3">Progresul tău</h2>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="w-full md:w-3/5">
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-green-500 to-emerald-400" style="width: 0%; transition: width 1.5s ease-out;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1 text-gray-600 dark:text-gray-400">
+                            <span>Începutul</span>
+                            <span id="progress-percent">0%</span>
+                            <span>Prezent</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm w-full md:w-2/5">
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm">Zile abstinente</p>
+                                <p id="days-count" class="text-2xl font-bold text-green-600 dark:text-green-400">0</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm">Ore de abstinență</p>
+                                <p id="life-recovered" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">0h</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center">Total ore fără alcool</p>
+                    </div>
+                </div>
+            </div>
             <p class="edit-note text-sm text-gray-600 dark:text-gray-400 text-center mb-6 p-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg transition-colors duration-300">
                 Poți edita datele specifice (<strong class="text-red-600 dark:text-red-400">roșu</strong>) și intervalele (<strong class="text-green-600 dark:text-green-400">verde</strong>) direct făcând clic pe ele.
-                Te rog păstrează formatul <strong>ZZ.LL.AAAA</strong> pentru datele specifice și asigură-te că intervalele modificate se potrivesc cronologic.
+                Te rog păstrează formatul <strong>ZZ.LL.AAAA</strong> pentru datele specifice și asigură-te că intervalele modificate se potrivesc cronologic. Apasă Enter sau cliquează în afara câmpului pentru a salva.
             </p>
 
             <ul id="timelineList" class="space-y-4">
-                <li class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-lg">
-                    <strong class="date-display editable-span" contenteditable="true">09.10.2022</strong> Accident sub influența alcoolului – M-am gândit doar la mine, am fost egoist și am pus vieți în pericol.
+                <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out">
+                    <strong class="date-display editable-span" contenteditable="true" data-original-value="09.10.2022">09.10.2022</strong> Accident sub influența alcoolului – M-am gândit doar la mine, am fost egoist și am pus vieți în pericol.
                 </li>
-                <li class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-purple-500 dark:border-purple-400 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-lg">
-                    <strong class="interval-display editable-span" contenteditable="true">Octombrie 2022 – Ianuarie 2023</strong> Am continuat să beau ca la început – excesiv și fără control.
+                <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-purple-500 dark:border-purple-400 transition duration-300 ease-in-out">
+                    <strong class="interval-display editable-span" contenteditable="true" data-original-value="Octombrie 2022 – Ianuarie 2023">Octombrie 2022 – Ianuarie 2023</strong> Am continuat să beau ca la început – excesiv și fără control.
                 </li>
-                <li class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-purple-500 dark:border-purple-400 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-lg">
-                    <strong class="interval-display editable-span" contenteditable="true">Februarie – Mai 2023</strong> Am redus treptat consumul – din ce în ce mai puțin, pe măsură ce conștientizam consecințele.
+                <li class="timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-purple-500 dark:border-purple-400 transition duration-300 ease-in-out">
+                    <strong class="interval-display editable-span" contenteditable="true" data-original-value="Februarie – Mai 2023">Februarie – Mai 2023</strong> Am redus treptat consumul – din ce în ce mai puțin, pe măsură ce conștientizam consecințele.
                 </li>
-                <li class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-emerald-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-green-500 dark:border-green-400 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-lg">
-                    <strong class="date-display editable-span" contenteditable="true">31.05.2023</strong> Ultima bere – decizie conștientă de a renunța definitiv.
+                <li class="timeline-item bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-emerald-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-green-500 dark:border-green-400 transition duration-300 ease-in-out">
+                    <strong class="date-display editable-span" contenteditable="true" data-original-value="31.05.2023">31.05.2023</strong> Ultima bere – decizie conștientă de a renunța definitiv.
                 </li>
-                <li class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-emerald-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-emerald-600 dark:border-emerald-500 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-lg">
-                    <strong class="date-display editable-span" contenteditable="true">01.06.2023</strong> Începutul abstinenței – Nu am mai consumat alcool de atunci!
+                <li id="abstinence-start-item" class="timeline-item bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-emerald-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-emerald-600 dark:border-emerald-500 transition duration-300 ease-in-out">
+                    <strong class="date-display editable-span" contenteditable="true" data-original-value="01.06.2023">01.06.2023</strong> Începutul abstinenței – Nu am mai consumat alcool de atunci!
                 </li>
             </ul>
-        </div>
-    </div>
+
+            <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-3">Adaugă un eveniment nou</h3>
+                <div class="space-y-3">
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <div class="flex-1">
+                            <label for="entry-type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tip</label>
+                            <select id="entry-type" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-base focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="date">Dată specifică</option>
+                                <option value="interval">Interval</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label for="entry-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data/Intervalul</label>
+                            <input type="text" id="entry-date" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-base focus:ring-indigo-500 focus:border-indigo-500" placeholder="ZZ.LL.AAAA sau Interval">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="entry-text" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descriere</label>
+                        <textarea id="entry-text" rows="2" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-base focus:ring-indigo-500 focus:border-indigo-500" placeholder="Descriere eveniment..."></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button id="add-entry-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors duration-200 flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i data-lucide="plus-circle" class="mr-1 h-4 w-4"></i> Adaugă
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex">
+                <button id="motivate-me-btn" class="mx-auto px-6 py-3 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center">
+                    <i data-lucide="sparkles" class="mr-2 h-5 w-5"></i> Motivație Zilnică
+                </button>
+            </div>
+            </div> </div> <div id="toast" class="toast">Nachricht</div>
 
     <script>
         // --- START Dark Mode Logic ---
         const darkModeToggle = document.getElementById('darkModeToggle');
         const darkModeIcon = document.getElementById('darkModeIcon');
         const userPrefersDark = localStorage.getItem('darkMode') === 'true' ||
-                                (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                               (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        const sunIconName = 'sun';
+        const moonIconName = 'moon';
 
-        // Icons HTML (using Lucide names)
-        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
-        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
-
-        // Function to apply the theme
         const applyTheme = (isDark) => {
+            const htmlElement = document.documentElement;
             if (isDark) {
-                document.documentElement.classList.add('dark');
-                darkModeIcon.innerHTML = sunIcon; // Show sun icon in dark mode
+                htmlElement.classList.add('dark');
+                darkModeIcon.setAttribute('data-lucide', sunIconName);
                 localStorage.setItem('darkMode', 'true');
             } else {
-                document.documentElement.classList.remove('dark');
-                darkModeIcon.innerHTML = moonIcon; // Show moon icon in light mode
+                htmlElement.classList.remove('dark');
+                darkModeIcon.setAttribute('data-lucide', moonIconName);
                 localStorage.setItem('darkMode', 'false');
             }
-             // Re-initialize Lucide icons after changing innerHTML
             if (typeof lucide !== 'undefined') {
                  lucide.createIcons();
             }
+             // Aufruf von initLogo() entfernt
         };
 
-        // Apply initial theme based on preference
         applyTheme(userPrefersDark);
 
-        // Add event listener to the toggle button
         darkModeToggle.addEventListener('click', () => {
             const isCurrentlyDark = document.documentElement.classList.contains('dark');
             applyTheme(!isCurrentlyDark);
@@ -248,7 +295,6 @@
             let i = 0;
             textElement.innerHTML = "";
             cursorElement.style.display = "inline-block";
-
             if (typingTimeoutId) clearTimeout(typingTimeoutId);
             if (typeWriterTimeoutId) clearTimeout(typeWriterTimeoutId);
             typeWriterTimeoutId = null;
@@ -256,24 +302,18 @@
             function typing() {
                 if (typingTimeoutId) clearTimeout(typingTimeoutId);
                 const isHovering = document.querySelector("#ad-banner:hover");
-
                 if (isHovering) {
-                    typingTimeoutId = setTimeout(typing, 200);
-                    return;
+                    typingTimeoutId = setTimeout(typing, 200); return;
                 }
-
                 if (i < text.length) {
-                    textElement.innerHTML += text.charAt(i);
-                    i++;
+                    textElement.innerHTML += text.charAt(i); i++;
                     typingTimeoutId = setTimeout(typing, TYPEWRITER_SPEED);
                 } else {
                     cursorElement.style.display = "none";
                     typeWriterTimeoutId = setTimeout(() => {
                         if (!document.querySelector("#ad-banner:hover")) {
                             typeWriter(textElement, cursorElement, text);
-                        } else {
-                            typing();
-                        }
+                        } else { typing(); }
                     }, RESTART_DELAY);
                 }
             }
@@ -287,208 +327,166 @@
         if (textGlowElement && cursorElement && adBannerElement) {
             const adMessage = "Adevărat, nu noi folosim alcoolul, ci alcoolul ne folosește pe noi! Nu mai vreau să fiu sclavul unei otrăvi intoxicante! Nu-ți irosi viața, viața este mai scurtă decât crezi!";
             typeWriter(textGlowElement, cursorElement, adMessage);
-
             adBannerElement.addEventListener("mouseenter", () => {
-                if (typeWriterTimeoutId) {
-                    clearTimeout(typeWriterTimeoutId);
-                    typeWriterTimeoutId = null;
-                }
+                if (typeWriterTimeoutId) { clearTimeout(typeWriterTimeoutId); typeWriterTimeoutId = null; }
             });
-
             adBannerElement.addEventListener("mouseleave", () => {
                  const isTypingComplete = textGlowElement.innerHTML === adMessage;
                  if (!typingTimeoutId && !typeWriterTimeoutId && isTypingComplete) {
-                     typeWriterTimeoutId = setTimeout(() => {
-                         typeWriter(textGlowElement, cursorElement, adMessage);
-                     }, 100);
-                 } else if (!typingTimeoutId && !isTypingComplete) {
-                     // Resume typing if paused mid-text
-                     const currentLength = textGlowElement.innerHTML.length;
-                     // Need access to 'i' and 'typing' or restart
-                     // Simple approach: just restart if paused mid-text
-                      if (typeWriterTimeoutId) clearTimeout(typeWriterTimeoutId); // Clear any pending restart just in case
-                      typeWriter(textGlowElement, cursorElement, adMessage); // Restart fully
-                 }
+                     typeWriterTimeoutId = setTimeout(() => { typeWriter(textGlowElement, cursorElement, adMessage); }, 100);
+                 } else if (!typingTimeoutId && !isTypingComplete) { typing(); }
             });
-        } else {
-            console.error("Banner elements (.text-glow, .cursor, or #ad-banner) not found!");
-        }
+        } else { console.error("Banner elements not found!"); }
         // --- END JavaScript Banner ---
 
+
+        // --- START Toast Notification Function ---
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            if (toast.timeoutId) { clearTimeout(toast.timeoutId); }
+            toast.timeoutId = setTimeout(() => {
+                toast.classList.remove('show');
+                toast.timeoutId = null;
+            }, duration);
+        }
+        // --- END Toast Notification Function ---
+
+
         // --- START JavaScript for Editable Content ---
-        document.querySelectorAll('.editable-span').forEach(span => {
-            span.addEventListener('blur', (event) => {
-                const text = event.target.innerText;
-                if (event.target.classList.contains('date-display')) {
-                    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-                    if (!dateRegex.test(text)) {
-                        console.warn("Format dată invalid:", text, ". Folosiți ZZ.LL.AAAA.");
-                    }
-                }
-                console.log("Edited:", event.target.classList.contains('date-display') ? 'Date' : 'Interval', '=', text);
-            });
-        });
-        // --- END JavaScript for Editable Content ---
-
-        // Initialize Lucide Icons on load
-        if (typeof lucide !== 'undefined') {
-             lucide.createIcons();
+        function setupEditableSpanListeners(span) {
+             span.addEventListener('focus', (event) => { event.target.dataset.originalValue = event.target.innerText.trim(); });
+             span.addEventListener('blur', handleEditBlur);
+             span.addEventListener('keydown', (event) => {
+                 if (event.key === 'Enter') { event.preventDefault(); event.target.blur(); }
+                 else if (event.key === 'Escape') { event.target.innerText = event.target.dataset.originalValue || ''; event.target.blur(); }
+             });
         }
-
-    </script>
-
-    <script type="module">
-        import * as THREE from 'three';
-
-        function create3DLogo(canvasId) {
-            let logoScene, logoCamera, logoRenderer, ring, vortex, particles = [], clock;
-
-            function init() {
-                const canvas = document.getElementById(canvasId);
-                if (!canvas) { console.error(`Canvas mit ID "${canvasId}" nicht gefunden.`); return; }
-                const container = canvas.parentElement;
-                if (!container) { console.error(`Container für Canvas mit ID "${canvasId}" nicht gefunden.`); return; }
-
-                logoScene = new THREE.Scene();
-                logoCamera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-                logoCamera.position.z = 15; // Angepasste Position für kleinere Größe
-
-                logoRenderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvas, alpha: true });
-                logoRenderer.setClearColor(0x000000, 0);
-                logoRenderer.setPixelRatio(window.devicePixelRatio);
-                logoRenderer.setSize(container.clientWidth, container.clientHeight);
-
-                createSceneElements();
-                setupInteractions();
-                clock = new THREE.Clock();
-                animate();
-            }
-
-            function createSceneElements() {
-                // Kerr-Ring (angepasste Größe)
-                const ringGeometry = new THREE.TorusGeometry(3, 0.5, 24, 80); // Kleinerer Radius/Dicke
-                const ringMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff99, emissive: 0x00cc77, emissiveIntensity: 0.6, metalness: 0.8, roughness: 0.3 });
-                ring = new THREE.Mesh(ringGeometry, ringMaterial);
-                logoScene.add(ring);
-
-                // 5D-Gateway-Vortex (angepasste Größe)
-                const vortexGeometry = new THREE.SphereGeometry(1.8, 24, 24); // Kleinerer Radius
-                const vortexMaterial = new THREE.MeshStandardMaterial({ color: 0x0044ff, emissive: 0x0033cc, emissiveIntensity: 0.5, transparent: true, opacity: 0.4, wireframe: true });
-                vortex = new THREE.Mesh(vortexGeometry, vortexMaterial);
-                logoScene.add(vortex);
-
-                // Teilchenstrom (weniger Partikel, angepasst)
-                const particleGeometry = new THREE.SphereGeometry(0.06, 6, 6); // Noch kleinere Partikel
-                const particleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-                for (let i = 0; i < 80; i++) { // Weniger Partikel
-                    const particle = new THREE.Mesh(particleGeometry, particleMaterial);
-                    particle.userData = {
-                        angle: Math.random() * Math.PI * 2,
-                        radius: 1.5 + Math.random() * 0.8, // Angepasster Radius
-                        height: -1.5 + Math.random() * 3, // Angepasste Höhe
-                        speed: 0.01 + Math.random() * 0.015 // Leicht höhere max. Geschwindigkeit
-                    };
-                    logoScene.add(particle);
-                    particles.push(particle);
-                }
-
-                const ambientLight = new THREE.AmbientLight(0x555555);
-                const pointLight = new THREE.PointLight(0x00ffaa, 1.5, 30);
-                pointLight.position.set(7, 7, 7);
-                logoScene.add(ambientLight);
-                logoScene.add(pointLight);
-            }
-
-            function setupInteractions() {
-                const raycaster = new THREE.Raycaster();
-                const mouse = new THREE.Vector2();
-                const canvas = logoRenderer.domElement;
-
-                canvas.addEventListener('click', (event) => {
-                    const rect = canvas.getBoundingClientRect();
-                    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-                    raycaster.setFromCamera(mouse, logoCamera);
-                    const intersects = raycaster.intersectObject(vortex);
-                    if (intersects.length > 0) {
-                        vortex.material.color.set(Math.random() * 0xffffff);
-                        vortex.material.emissive.set(vortex.material.color);
-                        console.log("Vortex geklickt!");
-                    }
-                });
-            }
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-                const scale = 1 + Math.sin(t * 1.5) * 0.1;
-                vortex.scale.set(scale, scale, scale);
-
-                const intensity = 0.5 + Math.abs(Math.sin(t * 1.5)) * 0.5;
-                 if (vortex.material.emissiveIntensity !== undefined) { vortex.material.emissiveIntensity = intensity; }
-                 if (ring.material.emissiveIntensity !== undefined) { ring.material.emissiveIntensity = 0.6 + Math.abs(Math.sin(t * 0.8)) * 0.4; }
-
-                ring.rotation.x += 0.005;
-                ring.rotation.y += 0.01;
-                vortex.rotation.y -= 0.002;
-
-                particles.forEach(p => {
-                    const userData = p.userData;
-                    userData.angle += userData.speed;
-                    p.position.x = Math.cos(userData.angle) * userData.radius;
-                    p.position.z = Math.sin(userData.angle) * userData.radius;
-                    p.position.y = userData.height + Math.sin(userData.angle * 1.5) * 0.5;
-                });
-
-                logoRenderer.render(logoScene, logoCamera);
-            }
-
-            function resize(width, height) {
-                 if (!logoRenderer || !logoCamera) return;
-                 // Verhindere Division durch Null oder ungültige Größe
-                 if (width <= 0 || height <= 0) return;
-                 logoCamera.aspect = width / height;
-                 logoCamera.updateProjectionMatrix();
-                 logoRenderer.setSize(width, height);
-            }
-
-            init();
-            return { resize };
-        }
-
-        // ----- Logo Initialisierung und Resize Handling -----
-        try {
-            const logoInstance = create3DLogo('logo-canvas');
-            const handleResize = () => {
-                const container = document.getElementById('logo-container');
-                if (container && logoInstance && typeof logoInstance.resize === 'function') {
-                    // Sicherstellen, dass die Größe positiv ist
-                    const width = Math.max(1, container.clientWidth);
-                    const height = Math.max(1, container.clientHeight);
-                    logoInstance.resize(width, height);
-                } else if (!container) {
-                    console.warn("Logo-Container nicht gefunden für Resize.");
-                } else if (!logoInstance || typeof logoInstance.resize !== 'function') {
-                     console.warn("Logo-Instanz oder resize-Funktion nicht verfügbar.");
-                }
-            };
-            window.addEventListener('resize', handleResize);
-            setTimeout(handleResize, 150); // Etwas längeres Timeout
-
-        } catch (error) {
-             console.error("Fehler bei der Initialisierung des 3D-Logos:", error);
-             const logoContainer = document.getElementById('logo-container');
-             if(logoContainer) {
-                 const errorMsg = document.createElement('p');
-                 errorMsg.textContent = 'Logo Fehler'; // Kürzer
-                 errorMsg.style.color = 'red'; errorMsg.style.fontSize = '9px';
-                 errorMsg.style.textAlign = 'center'; errorMsg.style.padding = '2px';
-                 logoContainer.appendChild(errorMsg);
-                 const canvas = document.getElementById('logo-canvas');
-                 if (canvas) canvas.style.display = 'none';
+        function handleEditBlur(event) {
+             const span = event.target; const newText = span.innerText.trim(); const originalText = span.dataset.originalValue || '';
+             if (newText === originalText) { return; }
+             let isValid = true;
+             if (span.classList.contains('date-display')) {
+                 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
+                 if (!dateRegex.test(newText)) {
+                     showToast("Format dată invalid! Folosiți ZZ.LL.AAAA."); span.innerText = originalText; isValid = false;
+                 }
+             }
+             if (isValid) {
+                 showToast("Salvat cu succes!"); span.dataset.originalValue = newText;
+                 if (span.closest('li')?.id === 'abstinence-start-item' || span.classList.contains('date-display')) { calculateProgress(); }
              }
         }
+        document.querySelectorAll('.editable-span').forEach(setupEditableSpanListeners);
+        // --- END JavaScript for Editable Content ---
+
+
+        // --- START Progress Calculation ---
+        function calculateProgress() {
+            try {
+                const abstinenceItem = document.getElementById('abstinence-start-item');
+                if (!abstinenceItem) { document.getElementById('progress-section').style.display = 'none'; return; }
+                document.getElementById('progress-section').style.display = 'block';
+                const abstinenteDateElement = abstinenceItem.querySelector('.date-display');
+                if (!abstinenteDateElement) { return; }
+                const abstinenteDateText = abstinenteDateElement.innerText.trim(); const parts = abstinenteDateText.split('.');
+                if (parts.length !== 3) { return; }
+                const startDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                if (isNaN(startDate.getTime())) { return; }
+                const now = new Date();
+                if (startDate > now) {
+                    document.getElementById('days-count').textContent = '0'; document.getElementById('life-recovered').textContent = '0h';
+                    document.getElementById('progress-percent').textContent = '0%'; document.getElementById('progress-bar').style.setProperty('--progress-width', '0%');
+                    document.getElementById('progress-bar').classList.remove('progress-animate'); void document.getElementById('progress-bar').offsetWidth; document.getElementById('progress-bar').classList.add('progress-animate');
+                    return;
+                }
+                const diffTime = Math.abs(now - startDate);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                document.getElementById('days-count').textContent = diffDays.toString();
+
+                // *** HIER IST DIE ÄNDERUNG: Berechne Gesamtstunden der Abstinenz ***
+                const hoursRecovered = diffDays * 24;
+                document.getElementById('life-recovered').textContent = hoursRecovered.toString() + 'h';
+
+                const progressPercentage = Math.min(100, Math.round((diffDays / 365) * 100));
+                document.getElementById('progress-percent').textContent = progressPercentage.toString() + '%';
+                const progressBar = document.getElementById('progress-bar'); progressBar.style.setProperty('--progress-width', progressPercentage + '%');
+                progressBar.classList.remove('progress-animate'); void progressBar.offsetWidth; progressBar.classList.add('progress-animate');
+            } catch (error) { console.error("Eroare la calcularea progresului:", error); }
+        }
+        // --- END Progress Calculation ---
+
+
+        // --- START Add New Entry Logic ---
+        document.getElementById('add-entry-btn').addEventListener('click', () => {
+            const entryType = document.getElementById('entry-type').value; const entryDateText = document.getElementById('entry-date').value.trim(); const entryText = document.getElementById('entry-text').value.trim();
+            if (!entryDateText || !entryText) { showToast("Te rog completează toate câmpurile!", 3000); return; }
+            if (entryType === 'date') {
+                 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
+                 if (!dateRegex.test(entryDateText)) { showToast("Format dată invalid! Folosiți ZZ.LL.AAAA.", 3000); return; }
+            }
+            const newItem = document.createElement('li');
+            newItem.className = 'timeline-item bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-indigo-800 p-4 rounded-lg shadow-sm dark:shadow-md border-l-4 border-blue-500 dark:border-blue-400 transition duration-300 ease-in-out';
+            const dateSpan = document.createElement('strong');
+            dateSpan.className = entryType === 'date' ? 'date-display editable-span' : 'interval-display editable-span';
+            dateSpan.contentEditable = "true"; dateSpan.textContent = entryDateText; dateSpan.dataset.originalValue = entryDateText;
+            newItem.appendChild(dateSpan); newItem.appendChild(document.createTextNode(' ' + entryText));
+            document.getElementById('timelineList').appendChild(newItem);
+            setupEditableSpanListeners(dateSpan);
+            document.getElementById('entry-date').value = ''; document.getElementById('entry-text').value = '';
+            showToast("Eveniment adăugat cu succes!");
+            if (entryType === 'date') { calculateProgress(); }
+            if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+        });
+        // --- END Add New Entry Logic ---
+
+
+        // --- START Motivation Logic ---
+        document.getElementById('motivate-me-btn').addEventListener('click', () => {
+            createConfetti();
+            const motivationalMessages = [ "Fiecare zi fără alcool este o victorie! Continuă să mergi înainte!", "Ai ales viața, sănătatea și libertatea în locul dependenței. Ești puternic!", "Nu uita cât de departe ai ajuns. Fii mândru de progresul tău!", "Alege-ți sănătatea în fiecare zi. Merită efortul!", "Libertatea de a nu depinde de o substanță este un dar pe care ți l-ai oferit singur.", "Fiecare provocare pe care o depășești te face mai puternic.", "Recuperarea înseamnă să creezi o viață care merită trăită.", "Ești mai puternic decât tentațiile tale.", "Viața ta se îmbunătățește zi de zi. Observă și apreciază aceste schimbări!", "Fii răbdător cu tine însuți. Recuperarea este un maraton, nu un sprint." ];
+            const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+            showMotivationalToast(randomMessage);
+        });
+        function createConfetti() {
+            const confettiCount = 80; const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1'];
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div'); confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw'; const shape = Math.random();
+                if (shape < 0.3) { confetti.style.borderRadius = '50%'; } else if (shape < 0.7) { confetti.style.width = '5px'; confetti.style.height = '15px'; }
+                document.body.appendChild(confetti); const animationDuration = 3 + Math.random() * 3;
+                confetti.style.animation = `confetti-fall ${animationDuration}s ease-out forwards`;
+                setTimeout(() => { confetti.remove(); }, animationDuration * 1000);
+            }
+        }
+        function showMotivationalToast(message) {
+            let motivationalToast = document.getElementById('motivational-toast');
+            if (!motivationalToast) {
+                motivationalToast = document.createElement('div'); motivationalToast.id = 'motivational-toast';
+                motivationalToast.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800/95 dark:bg-slate-900/95 text-white p-6 md:p-8 rounded-lg shadow-xl z-[1000] max-w-[90%] md:max-w-md text-center text-lg md:text-xl font-medium opacity-0 transition-opacity duration-300 ease-out';
+                document.body.appendChild(motivationalToast);
+            }
+            motivationalToast.textContent = message; void motivationalToast.offsetWidth;
+            motivationalToast.classList.add('opacity-100');
+            if (motivationalToast.hideTimeout) clearTimeout(motivationalToast.hideTimeout);
+            motivationalToast.hideTimeout = setTimeout(() => {
+                motivationalToast.classList.remove('opacity-100');
+            }, 5000);
+        }
+        // --- END Motivation Logic ---
+
+
+        // --- Initialisierungen beim Laden der Seite ---
+        document.addEventListener('DOMContentLoaded', () => {
+             if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+             calculateProgress();
+             // initLogo(); // Entfernt, da Logo gelöscht wurde
+        });
+
     </script>
 
-</body>
+    </body>
 </html>
